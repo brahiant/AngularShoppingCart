@@ -30,4 +30,10 @@ export class CartAppComponent implements OnInit {
       this.cartItems = [...this.cartItems, {product: {...product}, quantity: 1}];
     }
   }
+
+  onRemoveFromCart(id: number) {
+    this.cartItems = this.cartItems.filter(item => item.product.id !== id);
+  }
+
+
 }

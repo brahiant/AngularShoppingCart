@@ -7,6 +7,7 @@
             <th>Price</th>
             <th>Quantity</th>
             <th>Total</th>
+            <th>Delete</th>
         </tr>
     </thead>
     <tbody>
@@ -16,6 +17,7 @@
                 <td>{{ item.product.price }}</td>
                 <td>{{ item.quantity }}</td>
                 <td>{{ item.product.price * item.quantity }}</td>
+                <td><button class="btn btn-danger btn sm" (click)="onRemoveFromCart(item.product.id)">Remove</button></td>
             </tr>
         }
     </tbody>
