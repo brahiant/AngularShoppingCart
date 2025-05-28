@@ -1,0 +1,11 @@
+<h2>Cart App</h2>
+
+<div class="row">
+    <
+        @for (product of products; track product.id) {
+            <div class="col-4 my-2">
+                <app-product-card [product]="product"></app-product-card>
+            </div>
+        }
+
+</div>
