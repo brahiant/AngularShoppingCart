@@ -22,4 +22,12 @@ export class CartAppComponent implements OnInit {
     this.products = this.productService.findAll();
   }
 
+  onAddToCart(product: Product) {
+    const hasItem = this.cartItems.find(item => item.product.id === product.id);
+    if (hasItem) {
+      hasItem.quantity++;
+    } else {
+      this.cartItems = [...this.cartItems, {product: {...product}, quantity: 1}];
+    }
+  }
 }
