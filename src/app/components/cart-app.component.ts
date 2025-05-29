@@ -18,8 +18,11 @@ export class CartAppComponent implements OnInit {
 
   cartItems: CartItem[] = [];
 
+  cartTotal: number = 0;
+
   ngOnInit(): void {
     this.products = this.productService.findAll();
+    this.calculateCartTotal();
   }
 
   onAddToCart(product: Product) {
@@ -29,10 +32,16 @@ export class CartAppComponent implements OnInit {
     } else {
       this.cartItems = [...this.cartItems, {product: {...product}, quantity: 1}];
     }
+    this.calculateCartTotal();
   }
 
   onRemoveFromCart(id: number) {
     this.cartItems = this.cartItems.filter(item => item.product.id !== id);
+    this.calculateCartTotal();
+  }
+
+  calculateCartTotal(): void {
+    this.cartTotal = this.cartItems.reduce((acomulaitor, item) => acomulaitor + (item.product.price * item.quantity), 0);
   }
 
 
