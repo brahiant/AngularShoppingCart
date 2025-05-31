@@ -4,10 +4,11 @@ import { ProductService } from '../services/product.service';
 import { CatalogComponent } from './catalog/catalog.component';
 import { CartComponent } from './cart/cart.component';
 import { CartItem } from '../models/cartItem';
+import { NavbarComponent } from './navbar/navbar.component';
 @Component({
   selector: 'app-cart-app',
   standalone: true,
-  imports: [CatalogComponent, CartComponent],
+  imports: [CatalogComponent, CartComponent, NavbarComponent],
   templateUrl: './cart-app.component.html'
 })
 export class CartAppComponent implements OnInit {
@@ -56,7 +57,7 @@ export class CartAppComponent implements OnInit {
 
   loadSessionStorage(): void {
     this.cartItems = JSON.parse(sessionStorage.getItem('cartItems') || '[]');
-    this.cartTotal = JSON.parse(sessionStorage.getItem('cartTotal') || '0');
+    this.cartTotal = JSON.parse(sessionStorage.getItem('cartTotal') || '[]');
   }
 
   toggleCart(): void {
