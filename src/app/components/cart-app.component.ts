@@ -20,6 +20,8 @@ export class CartAppComponent implements OnInit {
 
   cartTotal: number = 0;
 
+  showCart: boolean = false;
+
   ngOnInit(): void {
     this.products = this.productService.findAll();
     this.loadSessionStorage();
@@ -55,5 +57,9 @@ export class CartAppComponent implements OnInit {
   loadSessionStorage(): void {
     this.cartItems = JSON.parse(sessionStorage.getItem('cartItems') || '[]');
     this.cartTotal = JSON.parse(sessionStorage.getItem('cartTotal') || '0');
+  }
+
+  toggleCart(): void {
+    this.showCart = !this.showCart;
   }
 }
