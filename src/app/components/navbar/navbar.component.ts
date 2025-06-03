@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component,Input} from '@angular/core';
 import { CartItem } from '../../models/cartItem';
 @Component({
   selector: 'app-navbar',
@@ -8,10 +8,4 @@ import { CartItem } from '../../models/cartItem';
 })
 export class NavbarComponent {
    @Input() cartItems: CartItem[] = [];
-   @Output() toggleCart: EventEmitter<void> = new EventEmitter<void>();
-
-   toggleCartEvent(): void {
-    this.toggleCart.emit();
-  }
-
 }

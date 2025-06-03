@@ -1,4 +1,4 @@
-<app-navbar [cartItems]="cartItems" (toggleCart)="toggleCart()"></app-navbar>
+<app-navbar [cartItems]="cartItems"></app-navbar>
 <div class="container my-4">
   <h2>Cart Products App</h2>
 
@@ -6,7 +6,4 @@
     [products]="products"
     (productEventEmitter)="onAddToCart($event)"
   ></app-catalog>
-  @if (showCart){
-   <app-cart-modal [cartItems]="cartItems"  (idProductEventEmitter)="onRemoveFromCart($event)" (closeEventEmitter)="toggleCart()"></app-cart-modal>
-  }
 </div>
