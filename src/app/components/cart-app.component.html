@@ -1,4 +1,4 @@
-<app-navbar [cartItems]="cartItems"></app-navbar>
+<app-navbar [cartItems]="cartItems" [cartTotal]="cartTotal"></app-navbar>
 <div class="container my-4">
   <h2>Cart Products App</h2>
 
@@ -6,4 +6,5 @@
     [products]="products"
     (productEventEmitter)="onAddToCart($event)"
   ></app-catalog>
+  <router-outlet></router-outlet>
 </div>

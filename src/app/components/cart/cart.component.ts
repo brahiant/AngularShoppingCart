@@ -1,5 +1,6 @@
 import { Component, EventEmitter} from '@angular/core';
 import { CartItem } from '../../models/cartItem';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-cart',
   standalone: true,
@@ -17,8 +18,9 @@ export class CartComponent {
     this.idProductEventEmitter.emit(id);
   }
 
-  calculateCartTotal(): void {
-    this.cartTotal = this.items.reduce((acomulaitor, item) => acomulaitor + (item.product.price * item.quantity), 0);
+  constructor(private router: Router) {
+     this.items = this.router.getCurrentNavigation()?.extras.state?.['cartItems'];
+     this.cartTotal = this.router.getCurrentNavigation()?.extras.state?.['cartTotal'];
   }
 
 
