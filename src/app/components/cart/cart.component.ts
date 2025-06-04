@@ -12,12 +12,6 @@ export class CartComponent {
 
   items: CartItem[] = [];
   cartTotal = 0;
-  idProductEventEmitter : EventEmitter<number> = new EventEmitter<number>();
-
-
-  onRemoveFromCart(id: number) {
-    this.idProductEventEmitter.emit(id);
-  }
 
   constructor(private router: Router, private sharingDataService: SharingDataService) {
      this.items = this.router.getCurrentNavigation()?.extras.state?.['cartItems'];
@@ -26,8 +20,6 @@ export class CartComponent {
 
   onDeleteCart(id: number){
     this.sharingDataService.idProductEventEmitter.emit(id);
-
   }
-
 
 }
