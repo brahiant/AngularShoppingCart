@@ -7,13 +7,10 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-          </li>
-          <li class="nav-item">
             <a [routerLink]="['/cart']" [state]="{cartItems, cartTotal: cartTotal}" class="nav-link" href="#" role="button">Cart {{cartItems.length}}</a>
           </li>
           <li class="nav-item">
-            <a [routerLink]="['/catalog']" [state]="{products: products}" class="nav-link" href="#" role="button">Catalog</a>
+            <a [routerLink]="['/catalog']" class="nav-link" href="#" role="button">Catalog</a>
           </li>
         </ul>
       </div>
