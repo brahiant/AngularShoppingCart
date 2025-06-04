@@ -5,6 +5,7 @@ import { CatalogComponent } from './catalog/catalog.component';
 import { CartItem } from '../models/cartItem';
 import { NavbarComponent } from './navbar/navbar.component';
 import { RouterOutlet } from '@angular/router';
+import { SharingDataService } from '../services/sharing-data.service';
 @Component({
   selector: 'app-cart-app',
   standalone: true,
@@ -13,7 +14,7 @@ import { RouterOutlet } from '@angular/router';
 })
 export class CartAppComponent implements OnInit {
 
-  constructor(private productService: ProductService) { }
+  constructor(private sharingDataService: SharingDataService, private productService: ProductService) { }
 
   products: Product[] = [];
 
@@ -25,6 +26,7 @@ export class CartAppComponent implements OnInit {
     this.products = this.productService.findAll();
     this.loadSessionStorage();
     this.calculateCartTotal();
+    this.onRemoveFromCart(); //No se ejecuta el eliminar sino que se suscribe para que se ejecute cuando se emita el evento
   }
 
   onAddToCart(product: Product) {
@@ -38,13 +40,16 @@ export class CartAppComponent implements OnInit {
     this.saveSessionStorage();
   }
 
-  onRemoveFromCart(id: number) {
+  onRemoveFromCart() {
+    // permite la suscripcion al evento
+    this.sharingDataService.idProductEventEmitter.subscribe(id => { 
     this.cartItems = this.cartItems.filter(item => item.product.id !== id);
     if(this.cartItems.length === 0){
       sessionStorage.removeItem('cartItems');
     }
     this.calculateCartTotal();
     this.saveSessionStorage();
+    });
   }
 
   calculateCartTotal(): void {
