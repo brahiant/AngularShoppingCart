@@ -12,6 +12,9 @@
           <li class="nav-item">
             <a [routerLink]="['/cart']" [state]="{cartItems, cartTotal: cartTotal}" class="nav-link" href="#" role="button">Cart {{cartItems.length}}</a>
           </li>
+          <li class="nav-item">
+            <a [routerLink]="['/catalog']" [state]="{products: products}" class="nav-link" href="#" role="button">Catalog</a>
+          </li>
         </ul>
       </div>
     </div>
