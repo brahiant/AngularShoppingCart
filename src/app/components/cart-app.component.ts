@@ -27,9 +27,11 @@ export class CartAppComponent implements OnInit {
     this.loadSessionStorage();
     this.calculateCartTotal();
     this.onRemoveFromCart(); //No se ejecuta el eliminar sino que se suscribe para que se ejecute cuando se emita el evento
+    this.onAddToCart();
   }
 
-  onAddToCart(product: Product) {
+  onAddToCart() {
+    this.sharingDataService.productsEventEmitter.subscribe(product => {
     const hasItem = this.cartItems.find(item => item.product.id === product.id);
     if (hasItem) {
       hasItem.quantity++;
@@ -38,6 +40,7 @@ export class CartAppComponent implements OnInit {
     }
     this.calculateCartTotal();
     this.saveSessionStorage();
+    });
   }
 
   onRemoveFromCart() {

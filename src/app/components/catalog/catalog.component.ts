@@ -11,15 +11,13 @@ import { Router } from '@angular/router';
 })
 export class CatalogComponent {
 
-  products: Product[] = []
-
-  productEventEmitter : EventEmitter<Product> = new EventEmitter<Product>();
+  products!: Product[]
 
   constructor(private sharingDataService: SharingDataService, private router: Router) {
     this.products = this.router.getCurrentNavigation()?.extras.state?.['products'];
   }
 
   onAddToCart(product: Product) {
-    this.productEventEmitter.emit(product);
+    this.sharingDataService.productsEventEmitter.emit(product);
   }
 }
