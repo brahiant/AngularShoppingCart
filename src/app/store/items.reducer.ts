@@ -8,30 +8,34 @@ export interface ItemsState {
 }
 
 export const initialState: ItemsState = {
-    items: JSON.parse(sessionStorage.getItem('cartItems') || '[]'),
-    total:0
+    items: JSON.parse(sessionStorage.getItem('cartItems') || '[]') ,
+    total: JSON.parse(sessionStorage.getItem('cartTotal') || '0')
 }
 export const itemsReducer = createReducer(
     initialState,
     on(add, (state, {product}) => {
         const hasItem = state.items.find(item => item.product.id === product.id);
         if (hasItem) {
-          hasItem.quantity++;
-        } else {
-          state.items = [...state.items, {product: {...product}, quantity: 1}];
-        }
-        return {
+          const updatedItems = state.items.map(item => 
+            item.product.id === product.id 
+              ? { ...item, quantity: item.quantity + 1 }
+              : item
+          );
+          return {
             ...state,
-            items: state.items,
-            total: state.total
+            items: updatedItems
+          };
+        } else {
+          return {
+            ...state,
+            items: [...state.items, {product: {...product}, quantity: 1}]
+          };
         }
     }),
     on(remove, (state, {id}) => {
-        state.items = state.items.filter(item => item.product.id !== id);
         return {
             ...state,
-            items: state.items,
-            total: state.total
+            items: state.items.filter(item => item.product.id !== id)
         }
     }),
     on(total, state => {
