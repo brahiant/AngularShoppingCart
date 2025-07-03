@@ -25,7 +25,7 @@ export class CartAppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loadSessionStorage();
-    this.calculateCartTotal();
+    //this.calculateCartTotal();
     this.onRemoveFromCart(); //No se ejecuta el eliminar sino que se suscribe para que se ejecute cuando se emita el evento
     this.onAddToCart();
   }
@@ -36,13 +36,8 @@ export class CartAppComponent implements OnInit, OnDestroy {
 
   onAddToCart() {
     const addSub = this.sharingDataService.productsEventEmitter.subscribe(product => {
-    const hasItem = this.cartItems.find(item => item.product.id === product.id);
-    if (hasItem) {
-      hasItem.quantity++;
-    } else {
-      this.cartItems = [...this.cartItems, {product: {...product}, quantity: 1}];
-    }
-    this.calculateCartTotal();
+    
+    //this.calculateCartTotal();
     this.saveSessionStorage();
     this.router.navigate(['/cart'], {state: {cartItems: this.cartItems, cartTotal: this.cartTotal}});
     Swal.fire({
@@ -68,14 +63,11 @@ export class CartAppComponent implements OnInit, OnDestroy {
         confirmButtonText: "Si, eliminar!"
       }).then((result) => {
         if (result.isConfirmed) {
-          this.cartItems = this.cartItems.filter(item => item.product.id !== id);
-    if(this.cartItems.length === 0){
-      sessionStorage.removeItem('cartItems');
-    }
-    this.calculateCartTotal();
-    this.saveSessionStorage();
-    this.router.navigateByUrl('/', {skipLocationChange:true}).then(() => {
-      this.router.navigate(['/cart'], {state: {cartItems: this.cartItems, cartTotal: this.cartTotal}});
+          
+          //this.calculateCartTotal();
+          this.saveSessionStorage();
+          this.router.navigateByUrl('/', {skipLocationChange:true}).then(() => {
+          this.router.navigate(['/cart'], {state: {cartItems: this.cartItems, cartTotal: this.cartTotal}});
     });
           Swal.fire({
             title: "Eliminado!",
@@ -87,10 +79,6 @@ export class CartAppComponent implements OnInit, OnDestroy {
     
     });
     this.subscriptions.add(removeSub);
-  }
-
-  calculateCartTotal(): void {
-    this.cartTotal = this.cartItems.reduce((acomulaitor, item) => acomulaitor + (item.product.price * item.quantity), 0);
   }
 
   saveSessionStorage(): void {
