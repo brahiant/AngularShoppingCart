@@ -26,15 +26,12 @@ export class CartAppComponent implements OnInit, OnDestroy {
 
   cartItems: CartItem[] = [];
 
-  cartTotal: number = 0;
-
   private subscriptions: Subscription = new Subscription();
 
   ngOnInit(): void {
     // Suscribirse al store
     const storeSub = this.store.select('items').subscribe(items => {
       this.cartItems = items.items;
-      this.cartTotal = items.total;
     });
     this.subscriptions.add(storeSub);
     
@@ -53,7 +50,7 @@ export class CartAppComponent implements OnInit, OnDestroy {
     this.store.dispatch(add({product: product}));
     this.store.dispatch(total());
     this.saveSessionStorage();
-    this.router.navigate(['/cart'], {state: {cartItems: this.cartItems, cartTotal: this.cartTotal}});
+    this.router.navigate(['/cart']);
     Swal.fire({
       title: 'Producto agregado al carrito',
       text: 'Nuevo producto agregado al carrito',
@@ -82,7 +79,7 @@ export class CartAppComponent implements OnInit, OnDestroy {
           this.store.dispatch(total());
           this.saveSessionStorage();
           this.router.navigateByUrl('/', {skipLocationChange:true}).then(() => {
-          this.router.navigate(['/cart'], {state: {cartItems: this.cartItems, cartTotal: this.cartTotal}});
+          this.router.navigate(['/cart']);
     });
           Swal.fire({
             title: "Eliminado!",
@@ -98,7 +95,6 @@ export class CartAppComponent implements OnInit, OnDestroy {
 
   saveSessionStorage(): void {
     sessionStorage.setItem('cartItems', JSON.stringify(this.cartItems));
-    sessionStorage.setItem('cartTotal', JSON.stringify(this.cartTotal));
   }
 
 }
